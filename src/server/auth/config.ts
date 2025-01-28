@@ -30,11 +30,24 @@ declare module "next-auth" {
  *
  * @see https://next-auth.js.org/configuration/options
  */
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          scope: [
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/fitness.nutrition.read",
+            "https://www.googleapis.com/auth/fitness.sleep.read",
+            "https://www.googleapis.com/auth/fitness.blood_pressure.read",
+            "https://www.googleapis.com/auth/fitness.body.read",
+            "https://www.googleapis.com/auth/fitness.body.write",
+          ].join(" "),
+        },
+      },
     }),
     /**
      * ...add more providers here.
